@@ -15,6 +15,7 @@
 		0B11B08E1C9172AB00B957DA /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B11B08D1C9172AB00B957DA /* SceneKit.framework */; };
 		0B28D7551CBAE1E800082572 /* FloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B28D7541CBAE1E800082572 /* FloatExtensions.swift */; };
 		0B28D7571CBB5D0100082572 /* space.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0B28D7561CBB5D0100082572 /* space.jpg */; };
+		0B28D75E1CBBBA4400082572 /* RubiksCube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B28D75D1CBBBA4400082572 /* RubiksCube.swift */; };
 		0B877D5A1C956D1D001BCE48 /* Explosion.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 0B877D581C956D1D001BCE48 /* Explosion.scnp */; };
 		0B877D5B1C956D1D001BCE48 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B877D591C956D1D001BCE48 /* spark.png */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		0B11B08D1C9172AB00B957DA /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		0B28D7541CBAE1E800082572 /* FloatExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatExtensions.swift; sourceTree = "<group>"; };
 		0B28D7561CBB5D0100082572 /* space.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = space.jpg; sourceTree = "<group>"; };
+		0B28D75D1CBBBA4400082572 /* RubiksCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubiksCube.swift; sourceTree = "<group>"; };
 		0B877D581C956D1D001BCE48 /* Explosion.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Explosion.scnp; sourceTree = "<group>"; };
 		0B877D591C956D1D001BCE48 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +51,7 @@
 		0B11B06F1C91729600B957DA = {
 			isa = PBXGroup;
 			children = (
+				0B28D75D1CBBBA4400082572 /* RubiksCube.swift */,
 				0B11B08D1C9172AB00B957DA /* SceneKit.framework */,
 				0B11B07A1C91729600B957DA /* SceneKitDemo */,
 				0B11B0791C91729600B957DA /* Products */,
@@ -165,6 +168,7 @@
 			files = (
 				0B11B07E1C91729600B957DA /* ViewController.swift in Sources */,
 				0B11B07C1C91729600B957DA /* AppDelegate.swift in Sources */,
+				0B28D75E1CBBBA4400082572 /* RubiksCube.swift in Sources */,
 				0B28D7551CBAE1E800082572 /* FloatExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
