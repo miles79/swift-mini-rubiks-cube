@@ -13,15 +13,6 @@ class RubiksCube : SCNNode {
     let cubeWidth:Float = 0.95
     let spaceBetweenCubes:Float = 0.05
     
-    enum CubeSide {
-        case North
-        case South
-        case East
-        case West
-        case Top
-        case Bottom
-    }
-    
     override init() {
         
         super.init()
@@ -106,7 +97,6 @@ class RubiksCube : SCNNode {
     
     func isNorthWallSolved()->Bool {
         let northWallNodes = getNorthWall()
-        print(northWallNodes[0].geometry?.materials[0].diffuse.contents)
         let material = northWallNodes[0].geometry?.materials[0]
         for i in 1..<northWallNodes.count {
             if material != northWallNodes[i].geometry?.materials[0] {
@@ -116,7 +106,9 @@ class RubiksCube : SCNNode {
         return true
     }
     
-    func isSolved() {
+    func isSolved()->Bool {
+        // this is a stub
+        return false
     }
     
     required init?(coder aDecoder: NSCoder) {

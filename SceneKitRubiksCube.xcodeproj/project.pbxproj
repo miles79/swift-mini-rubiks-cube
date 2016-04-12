@@ -21,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B11B0781C91729600B957DA /* SceneKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B11B0781C91729600B957DA /* SceneKitRubiksCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitRubiksCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B11B07B1C91729600B957DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B11B07D1C91729600B957DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0B11B0801C91729600B957DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -31,7 +31,7 @@
 		0B11B08D1C9172AB00B957DA /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		0B28D7541CBAE1E800082572 /* FloatExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatExtensions.swift; sourceTree = "<group>"; };
 		0B28D7561CBB5D0100082572 /* space.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = space.jpg; sourceTree = "<group>"; };
-		0B28D75D1CBBBA4400082572 /* RubiksCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubiksCube.swift; sourceTree = "<group>"; };
+		0B28D75D1CBBBA4400082572 /* RubiksCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RubiksCube.swift; path = ../RubiksCube.swift; sourceTree = "<group>"; };
 		0B877D581C956D1D001BCE48 /* Explosion.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Explosion.scnp; sourceTree = "<group>"; };
 		0B877D591C956D1D001BCE48 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,9 +51,8 @@
 		0B11B06F1C91729600B957DA = {
 			isa = PBXGroup;
 			children = (
-				0B28D75D1CBBBA4400082572 /* RubiksCube.swift */,
 				0B11B08D1C9172AB00B957DA /* SceneKit.framework */,
-				0B11B07A1C91729600B957DA /* SceneKitDemo */,
+				0B11B07A1C91729600B957DA /* SceneKitRubiksCube */,
 				0B11B0791C91729600B957DA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,14 +60,15 @@
 		0B11B0791C91729600B957DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B11B0781C91729600B957DA /* SceneKitDemo.app */,
+				0B11B0781C91729600B957DA /* SceneKitRubiksCube.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0B11B07A1C91729600B957DA /* SceneKitDemo */ = {
+		0B11B07A1C91729600B957DA /* SceneKitRubiksCube */ = {
 			isa = PBXGroup;
 			children = (
+				0B1766191CBC59E1002B08BF /* Models */,
 				0B28D7561CBB5D0100082572 /* space.jpg */,
 				0B28D7531CBAE1A300082572 /* Extensions */,
 				0B11B07B1C91729600B957DA /* AppDelegate.swift */,
@@ -80,7 +80,15 @@
 				0B877D581C956D1D001BCE48 /* Explosion.scnp */,
 				0B877D591C956D1D001BCE48 /* spark.png */,
 			);
-			path = SceneKitDemo;
+			path = SceneKitRubiksCube;
+			sourceTree = "<group>";
+		};
+		0B1766191CBC59E1002B08BF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0B28D75D1CBBBA4400082572 /* RubiksCube.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		0B28D7531CBAE1A300082572 /* Extensions */ = {
@@ -94,9 +102,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B11B0771C91729600B957DA /* SceneKitDemo */ = {
+		0B11B0771C91729600B957DA /* SceneKitRubiksCube */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B11B08A1C91729600B957DA /* Build configuration list for PBXNativeTarget "SceneKitDemo" */;
+			buildConfigurationList = 0B11B08A1C91729600B957DA /* Build configuration list for PBXNativeTarget "SceneKitRubiksCube" */;
 			buildPhases = (
 				0B11B0741C91729600B957DA /* Sources */,
 				0B11B0751C91729600B957DA /* Frameworks */,
@@ -106,9 +114,9 @@
 			);
 			dependencies = (
 			);
-			name = SceneKitDemo;
+			name = SceneKitRubiksCube;
 			productName = SceneKitDemo;
-			productReference = 0B11B0781C91729600B957DA /* SceneKitDemo.app */;
+			productReference = 0B11B0781C91729600B957DA /* SceneKitRubiksCube.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +135,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0B11B0731C91729600B957DA /* Build configuration list for PBXProject "SceneKitDemo" */;
+			buildConfigurationList = 0B11B0731C91729600B957DA /* Build configuration list for PBXProject "SceneKitRubiksCube" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -140,7 +148,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B11B0771C91729600B957DA /* SceneKitDemo */,
+				0B11B0771C91729600B957DA /* SceneKitRubiksCube */,
 			);
 		};
 /* End PBXProject section */
@@ -284,11 +292,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = SceneKitDemo/Info.plist;
+				INFOPLIST_FILE = SceneKitRubiksCube/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.milesmcleod.www.SceneKitDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.milesmcleod.www.SceneKitRubiksCube;
+				PRODUCT_NAME = SceneKitRubiksCube;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -300,11 +308,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = SceneKitDemo/Info.plist;
+				INFOPLIST_FILE = SceneKitRubiksCube/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.milesmcleod.www.SceneKitDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.milesmcleod.www.SceneKitRubiksCube;
+				PRODUCT_NAME = SceneKitRubiksCube;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 			};
 			name = Release;
@@ -312,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0B11B0731C91729600B957DA /* Build configuration list for PBXProject "SceneKitDemo" */ = {
+		0B11B0731C91729600B957DA /* Build configuration list for PBXProject "SceneKitRubiksCube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B11B0881C91729600B957DA /* Debug */,
@@ -321,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B11B08A1C91729600B957DA /* Build configuration list for PBXNativeTarget "SceneKitDemo" */ = {
+		0B11B08A1C91729600B957DA /* Build configuration list for PBXNativeTarget "SceneKitRubiksCube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B11B08B1C91729600B957DA /* Debug */,

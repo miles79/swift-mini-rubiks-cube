@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var screenWidth: Float!
     var screenHeight: Float!
     
-    var sceneView: SCNView!
+    @IBOutlet var sceneView: SCNView!
     var rootNode: SCNNode!
     var cameraNode: SCNNode!
     var lightNode: SCNNode!
@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         case West
         case Top
         case Bottom
+        case None
     }
     
     var rotationAxis:SCNVector3!
@@ -48,6 +49,7 @@ class ViewController: UIViewController {
         sceneView = SCNView(frame: self.view.frame)
         sceneView.scene = SCNScene()
         sceneView.backgroundColor = UIColor(red: 0.3, green: 0.72, blue: 0.65, alpha: 1)
+        
         self.view.addSubview(sceneView)
         rootNode = sceneView.scene!.rootNode
  
@@ -64,9 +66,12 @@ class ViewController: UIViewController {
         
         // place the camera
         cameraNode.position = SCNVector3Make(0, 0, 0);
-        cameraNode.pivot = SCNMatrix4MakeTranslation(0, 0, -10); //the -15 here will become the rotation radius
+        cameraNode.pivot = SCNMatrix4MakeTranslation(0, 0, -8); //-8 here will become the rotation radius
         
         // set gesture recognizers
+        let pinchRecognizer = UIPinchGestureRecognizer()
+        pinchRecognizer.addTarget(self, action: "scenePinched")
+        
         let rotationRecognizer = UIRotationGestureRecognizer()
         rotationRecognizer.addTarget(self, action: "sceneRotated:")
         
@@ -77,7 +82,32 @@ class ViewController: UIViewController {
     }
     
     // gesture handlers
+    func scenePinched(recognizer: UIPinchGestureRecognizer) {
+        //print(recognizer.velocity)
+        //cameraNode.pivot = SCNMatrix4MakeTranslation(0, 0, recognizer.scale);
+    }
+    
     func sceneRotated(recognizer: UIRotationGestureRecognizer) {
+        let oldRot = cameraNode.rotation as SCNQuaternion;
+        var rot = GLKQuaternionMakeWithAngleAndAxis(oldRot.w, oldRot.x, oldRot.y, oldRot.z)
+        
+        let MAX_ROTATION_SPEED:CGFloat = 1
+        var velocity = recognizer.velocity
+        if recognizer.velocity > 1 {
+            velocity = MAX_ROTATION_SPEED
+        }
+        else if recognizer.velocity < -1 {
+            velocity = -MAX_ROTATION_SPEED
+        }
+
+        let rotZ = GLKQuaternionMakeWithAngleAndAxis(0.1*Float(velocity), 0, 0, 1)
+        
+        rot = GLKQuaternionMultiply(rot, rotZ)
+        
+        let axis = GLKQuaternionAxis(rot)
+        let angle = GLKQuaternionAngle(rot)
+        
+        cameraNode.rotation = SCNVector4Make(axis.x, axis.y, axis.z, angle)
     }
     
     func scenePanned(recognizer: UIPanGestureRecognizer) {
@@ -134,25 +164,9 @@ class ViewController: UIViewController {
             
             var side:CubeSide!;
             
-            if beganPanHitResult.worldCoordinates.x.nearlyEqual(0.975, epsilon: 0.025) {
-                side = CubeSide.East
-            }
-            else if beganPanHitResult.worldCoordinates.x.nearlyEqual(-0.975, epsilon: 0.025) {
-                side = CubeSide.West
-            }
-            else if beganPanHitResult.worldCoordinates.y.nearlyEqual(0.975, epsilon: 0.025) {
-                side = CubeSide.Top
-            }
-            else if beganPanHitResult.worldCoordinates.y.nearlyEqual(-0.975, epsilon: 0.025) {
-                side = CubeSide.Bottom
-            }
-            else if beganPanHitResult.worldCoordinates.z.nearlyEqual(0.975, epsilon: 0.025) {
-                side = CubeSide.South
-            }
-            else if beganPanHitResult.worldCoordinates.z.nearlyEqual(-0.975, epsilon: 0.025) {
-                side = CubeSide.North
-            }
-            else {
+            side = resolveCubeSize(beganPanHitResult, edgeDistanceFromOrigin: 0.975)
+            
+            if side == CubeSide.None {
                 self.animationLock = false;
                 self.beganPanNode = nil;
                 return
@@ -270,6 +284,29 @@ class ViewController: UIViewController {
                 self.beganPanNode = nil
             })
         }
+    }
+    
+    private func resolveCubeSize(hitResult: SCNHitTestResult, edgeDistanceFromOrigin:Float)->CubeSide {
+        
+        if beganPanHitResult.worldCoordinates.x.nearlyEqual(edgeDistanceFromOrigin, epsilon: 0.025) {
+            return CubeSide.East
+        }
+        else if beganPanHitResult.worldCoordinates.x.nearlyEqual(-edgeDistanceFromOrigin, epsilon: 0.025) {
+            return CubeSide.West
+        }
+        else if beganPanHitResult.worldCoordinates.y.nearlyEqual(edgeDistanceFromOrigin, epsilon: 0.025) {
+            return CubeSide.Top
+        }
+        else if beganPanHitResult.worldCoordinates.y.nearlyEqual(-edgeDistanceFromOrigin, epsilon: 0.025) {
+            return CubeSide.Bottom
+        }
+        else if beganPanHitResult.worldCoordinates.z.nearlyEqual(edgeDistanceFromOrigin, epsilon: 0.025) {
+            return CubeSide.South
+        }
+        else if beganPanHitResult.worldCoordinates.z.nearlyEqual(-edgeDistanceFromOrigin, epsilon: 0.025) {
+            return CubeSide.North
+        }
+        return CubeSide.None
     }
     
     override func didReceiveMemoryWarning() {
