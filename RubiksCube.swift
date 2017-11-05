@@ -19,25 +19,25 @@ class RubiksCube : SCNNode {
         
         //define material used for making the rubiks cube
         let greenMaterial = SCNMaterial()
-        greenMaterial.diffuse.contents = UIColor.greenColor()
+        greenMaterial.diffuse.contents = UIColor.green
         
         let redMaterial = SCNMaterial()
-        redMaterial.diffuse.contents = UIColor.redColor()
+        redMaterial.diffuse.contents = UIColor.red
         
         let blueMaterial = SCNMaterial()
-        blueMaterial.diffuse.contents = UIColor.blueColor()
+        blueMaterial.diffuse.contents = UIColor.blue
         
         let yellowMaterial = SCNMaterial()
-        yellowMaterial.diffuse.contents = UIColor.yellowColor()
+        yellowMaterial.diffuse.contents = UIColor.yellow
         
         let whiteMaterial = SCNMaterial()
-        whiteMaterial.diffuse.contents = UIColor.whiteColor()
+        whiteMaterial.diffuse.contents = UIColor.white
         
         let orangeMaterial = SCNMaterial()
-        orangeMaterial.diffuse.contents = UIColor.orangeColor()
+        orangeMaterial.diffuse.contents = UIColor.orange
         
         let blackMaterial = SCNMaterial()
-        blackMaterial.diffuse.contents = UIColor.blackColor()
+        blackMaterial.diffuse.contents = UIColor.black
         
         // create the cube
         let cubeOffsetDistance = self.cubeOffsetDistance()
@@ -82,14 +82,14 @@ class RubiksCube : SCNNode {
     }
     
     func getSouthWall()->[SCNNode] {
-        let southWallNodes = self.childNodesPassingTest { (child, stop) -> Bool in
+        let southWallNodes = self.childNodes { (child, stop) -> Bool in
             return child.position.z.nearlyEqual(self.cubeOffsetDistance(), epsilon: 0.01)
         }
         return southWallNodes
     }
     
     func getNorthWall()->[SCNNode] {
-        let northWallNodes = self.childNodesPassingTest { (child, stop) -> Bool in
+        let northWallNodes = self.childNodes { (child, stop) -> Bool in
             return child.position.z.nearlyEqual(-self.cubeOffsetDistance(), epsilon: 0.01)
         }
         return northWallNodes
