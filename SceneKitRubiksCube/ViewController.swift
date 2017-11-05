@@ -12,7 +12,7 @@ import OpenGLES
 
 class ViewController: UIViewController {
     
-    let screenSize: CGRect = UIScreen.mainScreen().bounds
+    let screenSize: CGRect = UIScreen.main.bounds
     var screenWidth: Float!
     var screenHeight: Float!
     
@@ -70,24 +70,24 @@ class ViewController: UIViewController {
         
         // set gesture recognizers
         let pinchRecognizer = UIPinchGestureRecognizer()
-        pinchRecognizer.addTarget(self, action: "scenePinched")
+        pinchRecognizer.addTarget(self, action: #selector(self.scenePinched(recognizer:)))
         
         let rotationRecognizer = UIRotationGestureRecognizer()
-        rotationRecognizer.addTarget(self, action: "sceneRotated:")
+        rotationRecognizer.addTarget(self, action: #selector(self.sceneRotated(recognizer:)))
         
         let panRecognizer = UIPanGestureRecognizer()
-        panRecognizer.addTarget(self, action: "scenePanned:")
+        panRecognizer.addTarget(self, action: #selector(self.scenePanned(recognizer:)))
         
         sceneView.gestureRecognizers = [rotationRecognizer, panRecognizer]
     }
     
     // gesture handlers
-    func scenePinched(recognizer: UIPinchGestureRecognizer) {
+    @objc func scenePinched(recognizer: UIPinchGestureRecognizer) {
         //print(recognizer.velocity)
         //cameraNode.pivot = SCNMatrix4MakeTranslation(0, 0, recognizer.scale);
     }
     
-    func sceneRotated(recognizer: UIRotationGestureRecognizer) {
+    @objc func sceneRotated(recognizer: UIRotationGestureRecognizer) {
         let oldRot = cameraNode.rotation as SCNQuaternion;
         var rot = GLKQuaternionMakeWithAngleAndAxis(oldRot.w, oldRot.x, oldRot.y, oldRot.z)
         
@@ -110,14 +110,14 @@ class ViewController: UIViewController {
         cameraNode.rotation = SCNVector4Make(axis.x, axis.y, axis.z, angle)
     }
     
-    func scenePanned(recognizer: UIPanGestureRecognizer) {
-        let location = recognizer.locationInView(sceneView)
+    @objc func scenePanned(recognizer: UIPanGestureRecognizer) {
+        let location = recognizer.location(in: sceneView)
         let hitResults = sceneView.hitTest(location, options: nil)
         
         // two fingers: camera rotation
-        if recognizer.numberOfTouches() == 2 {
-            let xVelocity = Float(recognizer.velocityInView(sceneView).x) * 0.1
-            let yVelocity = Float(recognizer.velocityInView(sceneView).y) * 0.1
+        if recognizer.numberOfTouches == 2 {
+            let xVelocity = Float(recognizer.velocity(in: sceneView).x) * 0.1
+            let yVelocity = Float(recognizer.velocity(in: sceneView).y) * 0.1
             
             let oldRot = cameraNode.rotation as SCNQuaternion;
             var rot = GLKQuaternionMakeWithAngleAndAxis(oldRot.w, oldRot.x, oldRot.y, oldRot.z)
@@ -134,19 +134,19 @@ class ViewController: UIViewController {
         }
         
         // 1 finger on cube: rotate cube section
-        if recognizer.numberOfTouches() == 1
+        if recognizer.numberOfTouches == 1
             && hitResults.count > 0
-            && recognizer.state == UIGestureRecognizerState.Began
+            && recognizer.state == UIGestureRecognizerState.began
             && beganPanNode == nil {
 
             beganPanHitResult = hitResults[0]
             beganPanNode = hitResults[0].node
         }
         
-        else if recognizer.state == UIGestureRecognizerState.Ended && beganPanNode != nil && animationLock == false {
+        else if recognizer.state == UIGestureRecognizerState.ended && beganPanNode != nil && animationLock == false {
             animationLock = true
             
-            let locationView = recognizer.locationInView(sceneView);
+            let locationView = recognizer.location(in: sceneView);
             let projectedOrigin = sceneView.projectPoint(beganPanHitResult.worldCoordinates);
             
             let estimatedPoint = sceneView.unprojectPoint(SCNVector3( Float(locationView.x), Float(locationView.y), projectedOrigin.z) );
@@ -164,7 +164,7 @@ class ViewController: UIViewController {
             
             var side:CubeSide!;
             
-            side = resolveCubeSize(beganPanHitResult, edgeDistanceFromOrigin: 0.975)
+            side = resolveCubeSize(hitResult: beganPanHitResult, edgeDistanceFromOrigin: 0.975)
             
             if side == CubeSide.None {
                 self.animationLock = false;
@@ -176,19 +176,19 @@ class ViewController: UIViewController {
                 if absYDiff > absZDiff {
                     plane = "Y";
                     if side == CubeSide.East {
-                        direction = yDiff > 0 ? -1 : 1;
+                        direction = yDiff > 0 ? 1 : -1;
                     }
                     else {
-                        direction = yDiff > 0 ? 1 : -1;
+                        direction = yDiff > 0 ? -1 : 1;
                     }
                 }
                 else {
                     plane = "Z";
                     if side == CubeSide.East {
-                        direction = zDiff > 0 ? 1 : -1;
+                        direction = zDiff > 0 ? -1 : 1;
                     }
                     else {
-                        direction = zDiff > 0 ? -1 : 1;
+                        direction = zDiff > 0 ? 1 : -1;
                     }
                 }
             }
@@ -196,19 +196,19 @@ class ViewController: UIViewController {
                 if absXDiff > absZDiff {
                     plane = "X";
                     if side == CubeSide.Top {
-                        direction = xDiff > 0 ? 1 : -1;
+                        direction = xDiff > 0 ? -1 : 1;
                     }
                     else {
-                        direction = xDiff > 0 ? -1 : 1;
+                        direction = xDiff > 0 ? 1 : -1;
                     }
                 }
                 else {
                     plane = "Z"
                     if side == CubeSide.Top {
-                        direction = zDiff > 0 ? -1 : 1;
+                        direction = zDiff > 0 ? 1 : -1;
                     }
                     else {
-                        direction = zDiff > 0 ? 1 : -1;
+                        direction = zDiff > 0 ? -1 : 1;
                     }
                 }
             }
@@ -216,25 +216,25 @@ class ViewController: UIViewController {
                 if absXDiff > absYDiff {
                     plane = "X";
                     if side == CubeSide.South {
-                        direction = xDiff > 0 ? -1 : 1;
+                        direction = xDiff > 0 ? 1 : -1;
                     }
                     else {
-                        direction = xDiff > 0 ? 1 : -1;
+                        direction = xDiff > 0 ? -1 : 1;
                     }
                 }
                 else {
                     plane = "Y"
                     if side == CubeSide.South {
-                        direction = yDiff > 0 ? 1 : -1;
+                        direction = yDiff > 0 ? -1 : 1;
                     }
                     else {
-                        direction = yDiff > 0 ? -1 : 1;
+                        direction = yDiff > 0 ? 1 : -1;
                     }
                 }
             }
             
             // get the nodes we want to rotate
-            let nodesToRotate =  rubiksCube.childNodesPassingTest { (child, stop) -> Bool in
+            let nodesToRotate =  rubiksCube.childNodes { (child, stop) -> Bool in
                 if ((side == CubeSide.East || side == CubeSide.West) && plane == "Z")
                     || ((side == CubeSide.North || side == CubeSide.South) && plane == "X") {
                         self.rotationAxis = SCNVector3(0,1,0);
@@ -266,15 +266,15 @@ class ViewController: UIViewController {
                 container.addChildNode(nodeToRotate)
             }
             
-            let rotationAngle = CGFloat(direction) * CGFloat(M_PI_2);
+            let rotationAngle = CGFloat(direction) * CGFloat(Double.pi/2);
 
             // create action
-            let actionTest = SCNAction.rotateByAngle(rotationAngle, aroundAxis: self.rotationAxis, duration: 0.5)
+            let actionTest = SCNAction.rotate(by: rotationAngle, around: self.rotationAxis, duration: 0.5)
             
             // apply action and remove nodes from container and add back to root
             container.runAction(actionTest, completionHandler: { () -> Void in
                 for node: SCNNode in nodesToRotate {
-                    let transform = node.parentNode!.convertTransform(node.transform, toNode: self.rubiksCube)
+                    let transform = node.parent!.convertTransform(node.transform, to: self.rubiksCube)
                     node.removeFromParentNode()
                     node.transform = transform
                     self.rubiksCube.addChildNode(node)
